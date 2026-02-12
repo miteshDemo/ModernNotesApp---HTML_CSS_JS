@@ -51,6 +51,32 @@ function showDeleteMessege(messege = "Note Deleted!") {
   }
 }
 
+//Show permanently Delete Notes Popup
+function showPermanentDelete(messege = "Notes Permanently Delete!"){
+  const popup = document.getElementById("permanentDelete")
+  if(popup){
+    popup.textContent = messege
+    popup.classList.add("show")
+
+    setTimeout(() =>{
+      popup.classList.remove("show")
+    }, 2000)
+  }
+}
+
+//Popup for Restore notes
+function showRestorePopup(message = "Note Restored!") {
+  const popup = document.getElementById("restorePopup");
+  if (popup) {
+    popup.textContent = message;
+    popup.classList.add("show");
+
+    setTimeout(() => {
+      popup.classList.remove("show");
+    }, 2000);
+  }
+}
+
 //Trash Count
 function updateTrashCount() {
   const badge = document.getElementById("trashCount");
@@ -220,6 +246,7 @@ function restoreNote(index) {
   saveTrash();
   renderTrash();
   updateTrashCount();
+  showRestorePopup()
 }
 
 // Permanently delete note
@@ -228,6 +255,7 @@ function deleteForever(index) {
   saveTrash();
   renderTrash();
   updateTrashCount();
+  showPermanentDelete();
 }
 
 // Edit note
