@@ -2,6 +2,13 @@ let notes = JSON.parse(localStorage.getItem("notes")) || [];
 let trash = JSON.parse(localStorage.getItem("trash")) || [];
 let editIndex = null;
 
+const categoryColors = {
+  General : "#abd5bd",
+  Work : "#ff6b6b",
+  Personal : "#4dabf7",
+  Study : "#51cf66",
+}
+
 // Save notes to localStorage
 function saveNotes() {
   localStorage.setItem("notes", JSON.stringify(notes));
@@ -122,12 +129,16 @@ function renderNotes(filter = "", categoryFilter = "All") {
   }
 
   filteredNotes.forEach((note, index) => {
+    let noteIndex = notes.indexOf(note)
     const text = typeof note === "string" ? note : note.text;
     const category = typeof note === "string" ? "General" : note.category;
     const timestamp = note.timestamp || "";
 
     const div = document.createElement("div");
     div.className = "note" + (note.pinned ? " pinned" : "");
+
+    const color = categoryColors[category] || "#ccc"
+    div.style.borderLeft = `8px solid ${color}`
 
     div.innerHTML = `
       <div>
@@ -158,8 +169,14 @@ function renderTrash() {
   }
 
   trash.forEach((note, index) => {
+
+    const text = typeof note === "string" ? note : note.text
+    const category = typeof note === "string" ? "General" : note.category 
     const div = document.createElement("div");
     div.className = "note trash-note";
+
+    const color = categoryColors[category] || "#ccc"
+    div.style.borderLeft = `8px solid ${color}`
 
     div.innerHTML = `<p>${note.text}</p>
       <div class="note-actions">
@@ -236,6 +253,7 @@ function deleteNotes(index) {
   showDeleteMessege("Moved to Trash!");
   updateTrashCount();
 }
+
 
 // Restore note
 function restoreNote(index) {

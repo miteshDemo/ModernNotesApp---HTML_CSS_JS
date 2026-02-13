@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Poppins, sans-serif;
+  font-weight: 700;
 }
 
 .notes-body {
@@ -174,7 +175,6 @@ body.dark .back-btn {
 .popup.show {
   opacity: 1;
 }
-
 
 @media (max-width: 600px) {
   .notes-header {
